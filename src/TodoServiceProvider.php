@@ -63,12 +63,12 @@ class TodoServiceProvider extends ServiceProvider {
 
         //$this->setupTranslations();
 
-        $this->setupViews();
+        //$this->setupViews();
 
         //$this->setupAssets();
 
-        //$this->setupMigrations();
-        //$this->setupSeeds();
+        $this->setupMigrations();
+        $this->setupSeeds();
     }
 
 
