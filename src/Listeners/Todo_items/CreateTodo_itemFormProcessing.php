@@ -1,5 +1,5 @@
 <?php
-namespace Lasallecrm\Todo\Jobs\Projects;
+namespace Lasallecrm\Todo\Listeners\Todo_items;
 
 /**
  *
@@ -57,7 +57,7 @@ use Lasallecms\Lasallecmsapi\FormProcessing\BaseFormProcessing;
  *
  * FYI: BaseFormProcessing implements the FormProcessing interface.
  */
-class CreateProjectFormProcessing extends BaseFormProcessing
+class CreateTodo_itemFormProcessing extends BaseFormProcessing
 {
     /*
      * Instance of the BASE repository
@@ -88,7 +88,7 @@ class CreateProjectFormProcessing extends BaseFormProcessing
      *
      * @var string
      */
-    protected $namespaceClassnameModel = "Lasallecrm\Todo\Models\Project";
+    protected $namespaceClassnameModel = "Lasallecrm\Todo\Models\Todo_item";
 
 
 

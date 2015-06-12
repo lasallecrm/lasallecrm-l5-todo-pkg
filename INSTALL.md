@@ -19,7 +19,7 @@ LaSalle Software "To Do" package.
 
 In config/app.php:
 ```
-'Lasallecrm\Todo\TodoServiceProvider',
+Lasallecrm\Todo\TodoServiceProvider::class,
 ```
 
 

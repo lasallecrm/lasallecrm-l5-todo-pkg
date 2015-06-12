@@ -121,7 +121,7 @@ class Project extends BaseModel
      *
      * @var string
      */
-    public $namespace_formprocessor = 'Lasallecrm\Todo\Jobs\Projects';
+    public $namespace_formprocessor = 'Lasallecrm\Todo\Listeners\Projects';
 
     /*
      * Class name of the CREATE Form Processor command

@@ -121,7 +121,7 @@ class Milestone extends BaseModel
      *
      * @var string
      */
-    public $namespace_formprocessor = 'Lasallecrm\Todo\Jobs\Milestones';
+    public $namespace_formprocessor = 'Lasallecrm\Todo\Listeners\Milestones';
 
     /*
      * Class name of the CREATE Form Processor command

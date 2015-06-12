@@ -121,7 +121,7 @@ class Todo_item extends BaseModel
      *
      * @var string
      */
-    public $namespace_formprocessor = 'Lasallecrm\Todo\Jobs\Todo_items';
+    public $namespace_formprocessor = 'Lasallecrm\Todo\Listeners\Todo_items';
 
     /*
      * Class name of the CREATE Form Processor command

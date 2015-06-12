@@ -1,5 +1,5 @@
 <?php
-namespace Lasallecrm\Todo\Jobs\Todo_items;
+namespace Lasallecrm\Todo\Listeners\Todo_items;
 
 /**
  *

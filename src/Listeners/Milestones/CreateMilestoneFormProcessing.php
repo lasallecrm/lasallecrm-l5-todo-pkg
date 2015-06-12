@@ -1,5 +1,5 @@
 <?php
-namespace Lasallecrm\Todo\Jobs\Todo_items;
+namespace Lasallecrm\Todo\Listeners\Milestones;
 
 /**
  *
@@ -32,6 +32,7 @@ namespace Lasallecrm\Todo\Jobs\Todo_items;
  *
  */
 
+
 ///////////////////////////////////////////////////////////////////
 ///            THIS IS A COMMAND HANDLER                        ///
 ///////////////////////////////////////////////////////////////////
@@ -45,19 +46,21 @@ namespace Lasallecrm\Todo\Jobs\Todo_items;
 ///////////////////////////////////////////////////////////////////
 
 
+
 // LaSalle Software
 use Lasallecms\Lasallecmsapi\Repositories\BaseRepository;
 use Lasallecms\Lasallecmsapi\FormProcessing\BaseFormProcessing;
 
+
 /*
- * Process an existing record.
+ * Process a new record.
  *
  * FYI: BaseFormProcessing implements the FormProcessing interface.
  */
-class UpdateTodo_itemFormProcessing extends BaseFormProcessing
+class CreateMilestoneFormProcessing extends BaseFormProcessing
 {
     /*
-     * Instance of repository
+     * Instance of the BASE repository
      *
      * @var Lasallecms\Lasallecmsapi\Repositories\BaseRepository
      */
@@ -75,7 +78,7 @@ class UpdateTodo_itemFormProcessing extends BaseFormProcessing
      *
      * @var string
      */
-    protected $type = "update";
+    protected $type = "create";
 
     ///////////////////////////////////////////////////////////////////
     /// SPECIFY THE FULL NAMESPACE AND CLASS NAME OF THE MODEL      ///
@@ -85,7 +88,8 @@ class UpdateTodo_itemFormProcessing extends BaseFormProcessing
      *
      * @var string
      */
-    protected $namespaceClassnameModel = "Lasallecrm\Todo\Models\Todo_item";
+    protected $namespaceClassnameModel = "Lasallecrm\Todo\Models\Milestone";
+
 
 
 
@@ -106,16 +110,18 @@ class UpdateTodo_itemFormProcessing extends BaseFormProcessing
         $this->repository->injectModelIntoRepository($this->namespaceClassnameModel);
     }
 
+
+
     /*
      * The form processing steps.
      *
      * @param  object  $createCommand   The command bus object
      * @return array                    The custom response array
      */
-    public function quarterback($updateCommand)
+    public function quarterback($createCommand)
     {
         // Convert the command bus object into an array
-        $data = (array) $updateCommand;
+        $data = (array) $createCommand;
 
 
         // Sanitize
@@ -125,10 +131,7 @@ class UpdateTodo_itemFormProcessing extends BaseFormProcessing
         // Validate
         if ($this->validate($data, $this->type) != "passed")
         {
-            // Unlock the record
-            $this->unlock($data['id']);
-
-            // Prepare the response array, and then return to the edit form with error messages
+            // Prepare the response array, and then return to the form with error messages
             return $this->prepareResponseArray('validation_failed', 500, $data, $this->validate($data, $this->type));
         }
 
@@ -137,13 +140,10 @@ class UpdateTodo_itemFormProcessing extends BaseFormProcessing
         $data = $this->wash($data);
 
 
-        // UPDATE record
+        // INSERT record
         if (!$this->persist($data, $this->type))
         {
-            // Unlock the record
-            $this->unlock($data['id']);
-
-            // Prepare the response array, and then return to the edit form with error messages
+            // Prepare the response array, and then return to the form with error messages
             // Laravel's https://github.com/laravel/framework/blob/5.0/src/Illuminate/Database/Eloquent/Model.php
             //  does not prepare a MessageBag object, so we'll whip up an error message in the
             //  originating controller
@@ -151,12 +151,8 @@ class UpdateTodo_itemFormProcessing extends BaseFormProcessing
         }
 
 
-        // Unlock the record
-        $this->unlock($data['id']);
-
-
-        // Prepare the response array, and then return to the command
-        return $this->prepareResponseArray('update_successful', 200, $data);
+        // Prepare the response array, and then return to the controller
+        return $this->prepareResponseArray('create_successful', 200, $data);
 
 
         ///////////////////////////////////////////////////////////////////
