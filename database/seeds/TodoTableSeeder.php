@@ -34,6 +34,7 @@
 // LaSalle Software
 use Lasallecrm\Todo\Models\Lookup_todo_priority_type;
 use Lasallecrm\Todo\Models\Lookup_todo_status_type;
+use Lasallecrm\Todo\Models\Project;
 
 // Laravel classes
 use Illuminate\Database\Seeder;
