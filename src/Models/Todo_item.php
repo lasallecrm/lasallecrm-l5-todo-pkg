@@ -108,6 +108,13 @@ class Todo_item extends BaseModel
      */
     public $resource_route_name   = "todoitems";
 
+    /*
+     * Do you want the "view" button to display in the index listing?
+     *
+     * @var bool
+     */
+    public $display_the_view_button = true;
+
 
     // FORM PROCESSORS PROPERTIES.
     // THESE ARE THE ADMIN CRUD COMMAND HANDLERS.
