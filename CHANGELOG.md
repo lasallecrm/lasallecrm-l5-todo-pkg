@@ -1,14 +1,10 @@
 # CHANGE LOG
 
 
-## NEXT: VERSION 0.9 - 2015-04-17
-
-### Add
-* basic to-do administration
-* set up package skeleton
+## VERSION 1.0 - (07-31-2015)
 
 ### All GitHub issues for this version
-* [https://github.com/lasallecrm/lasallecrm-l5-todo-pkg/issues?q=is%3Aissue+milestone%3A%22Version+0.9%22](https://github.com/lasallerm/lasallecrm-l5-todo-pkg/issues?q=is%3Aissue+milestone%3A%22Version+0.9%22)
+* [https://github.com/lasallecrm/lasallecrm-l5-todo-pkg/milestones/Version%201.0](https://github.com/lasallecrm/lasallecrm-l5-todo-pkg/milestones/Version%201.0)
 
 
 
