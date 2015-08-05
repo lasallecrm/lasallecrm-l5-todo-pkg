@@ -279,14 +279,6 @@ class CreateTodoTables extends Migration
         ////                         Main Tables                           ////
         ///////////////////////////////////////////////////////////////////////
 
-        Schema::table('lookup_todo_status_types', function($table){
-            $table->dropIndex('lookup_todo_status_types_title_unique');
-            $table->dropForeign('lookup_todo_status_types_created_by_foreign');
-            $table->dropForeign('lookup_todo_status_types_updated_by_foreign');
-            $table->dropForeign('lookup_todo_status_types_locked_by_foreign');
-        });
-        Schema::dropIfExists('lookup_todo_priority_types');
-
         Schema::table('milestones', function($table){
             $table->dropForeign('milestones_status_id_foreign');
             $table->dropForeign('milestones_priority_id_foreign');
