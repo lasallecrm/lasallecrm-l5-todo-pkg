@@ -272,7 +272,7 @@ class CreateTodoTables extends Migration
             $table->dropForeign('lookup_todo_status_types_updated_by_foreign');
             $table->dropForeign('lookup_todo_status_types_locked_by_foreign');
         });
-        Schema::dropIfExists('lookup_todo_priority_types');
+        Schema::dropIfExists('lookup_todo_status_types');
 
 
         ///////////////////////////////////////////////////////////////////////
