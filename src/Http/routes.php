@@ -35,10 +35,18 @@ Route::group(array('prefix' => 'admin'), function()
 {
     // Regular tables
     Route::resource('todomilestones', 'AdminTODOMilestonesController');
+    Route::post('todomilestones/confirmDeletion/{id}', 'AdminTODOMilestonesController@confirmDeletion');
+
     Route::resource('todoprojects', 'AdminTODOProjectsController');
+    Route::post('todoprojects/confirmDeletion/{id}', 'AdminTODOProjectsController@confirmDeletion');
+
     Route::resource('todoitems', 'AdminTODOItemsController');
+    Route::post('todoitems/confirmDeletion/{id}', 'AdminTODOItemsController@confirmDeletion');
 
     // Lookup Tables
     Route::resource('lutodopriorities', 'AdminLookupTodoPrioritiesTypesController');
+    Route::post('lutodopriorities/confirmDeletion/{id}', 'AdminLookupTodoPrioritiesTypesController@confirmDeletion');
+
     Route::resource('lutodostatuses', 'AdminLookupTodoStatusTypesController');
+    Route::post('lutodostatuses/confirmDeletion/{id}', 'AdminLookupTodoStatusTypesController@confirmDeletion');
 });
