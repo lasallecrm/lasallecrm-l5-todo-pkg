@@ -61,6 +61,16 @@ class Todo_item extends BaseModel
         'title', 'description', 'comments', 'due_date', 'enabled', 'project_id', 'milestone_id', 'status_id', 'priority_id', 'people_id',
     ];
 
+    /**
+     * Indicates if the model should be timestamped.
+     *
+     * LaSalle Software handles the created_at and updated_at fields, so false.
+     *
+     * @var bool
+     */
+    public $timestamps = false;
+
+
 
     // PACKAGE PROPERTIES
 

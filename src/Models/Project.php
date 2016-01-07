@@ -61,6 +61,16 @@ class Project extends BaseModel
         'title', 'description', 'comments', 'enabled', 'due_date', 'milestone_id', 'status_id', 'priority_id', 'company_id', 'people_id', 'website_id'
     ];
 
+    /**
+     * Indicates if the model should be timestamped.
+     *
+     * LaSalle Software handles the created_at and updated_at fields, so false.
+     *
+     * @var bool
+     */
+    public $timestamps = false;
+
+
 
     // PACKAGE PROPERTIES
 
