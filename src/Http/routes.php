@@ -42,6 +42,8 @@ Route::group(array('prefix' => 'admin'), function()
 
     Route::resource('todoitems', 'AdminTODOItemsController');
     Route::post('todoitems/confirmDeletion/{id}', 'AdminTODOItemsController@confirmDeletion');
+    Route::post('todoitems/confirmDeletionMultipleRows', 'AdminTODOItemsController@confirmDeletionMultipleRows');
+    Route::post('todoitems/destroyMultipleRecords', 'AdminTODOItemsController@destroyMultipleRecords');
 
     // Lookup Tables
     Route::resource('lutodopriorities', 'AdminLookupTodoPrioritiesTypesController');
