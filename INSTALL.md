@@ -9,7 +9,7 @@ LaSalle Software "To Do" package.
 ```
 {
     "require": {
-        "lasallecrm/todo": "0.9.*",
+        "lasallecrm/todo": "1.*",
     }
 }
 ```
