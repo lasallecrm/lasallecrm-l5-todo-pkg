@@ -1,4 +1,5 @@
 <?php
+
 namespace Lasallecrm\Todo\Http\Controllers;
 
 /**
@@ -36,7 +37,8 @@ namespace Lasallecrm\Todo\Http\Controllers;
 use Lasallecms\Formhandling\Lookuptables\AdminLookupTableBaseController;
 use Lasallecms\Lasallecmsapi\Repositories\BaseRepository;
 
-/*
+
+/**
  * Resource controller for administration of lookup_address_types
  */
 class AdminLookupTodoPrioritiesTypesController extends AdminLookupTableBaseController
@@ -46,42 +48,42 @@ class AdminLookupTodoPrioritiesTypesController extends AdminLookupTableBaseContr
     ////////////////           MODIFY THESE!          /////////////////
     ///////////////////////////////////////////////////////////////////
 
-    /*
+    /**
      * @var Name of this package
      */
     public $package_title        = "LaSalleCMS - To Do";
 
-    /*
+    /**
      * Lookup table type, in the plural
      */
     public $table_type_plural   = "Priority Types";
 
-    /*
+    /**
      * Lookup table type, in the singular
      */
     public $table_type_singular  = "Priority Type";
 
-    /*
+    /**
      * Lookup table name
      */
     public $table_name           = "lookup_todo_priority_types";
 
-    /*
+    /**
      * This lookup table's model class namespace
      */
     public $model_namespace      = "Lasallecrm\Todo\Models";
 
-    /*
+    /**
      * This lookup table's model class
      */
     public $model_class          = "Lookup_todo_priority_type";
 
-    /*
+    /**
      * The base URL of this lookup table's resource routes
      */
     public $resource_route_name   = "lutodopriorities";
 
-    /*
+    /**
      * Suppress the delete button when just one record to list, in the listings (index) page
      *
      * true  = suppress the delete button when just one record to list
@@ -102,8 +104,8 @@ class AdminLookupTodoPrioritiesTypesController extends AdminLookupTableBaseContr
      * @param  Lasallecms\Lasallecmsapi\Repositories\BaseRepository
      * @return void
      */
-    public function __construct(BaseRepository $repository)
-    {
+    public function __construct(BaseRepository $repository) {
+
         // execute AdminLookupTableBaseController's construct method first in order to run the middleware
         parent::__construct() ;
 

@@ -1,5 +1,6 @@
 <?php
-namespace Lasallecrm\Todo\Listeners\Projects;
+
+namespace Lasallecrm\Todo\FormProcessing\Milestones;
 
 /**
  *
@@ -32,6 +33,7 @@ namespace Lasallecrm\Todo\Listeners\Projects;
  *
  */
 
+
 ///////////////////////////////////////////////////////////////////
 ///            THIS IS A COMMAND HANDLER                        ///
 ///////////////////////////////////////////////////////////////////
@@ -45,19 +47,21 @@ namespace Lasallecrm\Todo\Listeners\Projects;
 ///////////////////////////////////////////////////////////////////
 
 
+
 // LaSalle Software
 use Lasallecms\Lasallecmsapi\Repositories\BaseRepository;
-use Lasallecms\Lasallecmsapi\FormProcessing\BaseFormProcessing;
+use Lasallecms\Lasallecmsadmin\FormProcessing\BaseFormProcessing;
 
-/*
- * Process an existing record.
+
+/**
+ * Process a new record.
  *
  * FYI: BaseFormProcessing implements the FormProcessing interface.
  */
-class UpdateProjectFormProcessing extends BaseFormProcessing
+class CreateMilestoneFormProcessing extends BaseFormProcessing
 {
     /*
-     * Instance of repository
+     * Instance of the BASE repository
      *
      * @var Lasallecms\Lasallecmsapi\Repositories\BaseRepository
      */
@@ -75,7 +79,7 @@ class UpdateProjectFormProcessing extends BaseFormProcessing
      *
      * @var string
      */
-    protected $type = "update";
+    protected $type = "create";
 
     ///////////////////////////////////////////////////////////////////
     /// SPECIFY THE FULL NAMESPACE AND CLASS NAME OF THE MODEL      ///
@@ -85,7 +89,8 @@ class UpdateProjectFormProcessing extends BaseFormProcessing
      *
      * @var string
      */
-    protected $namespaceClassnameModel = "Lasallecrm\Todo\Models\Project";
+    protected $namespaceClassnameModel = "Lasallecrm\Todo\Models\Milestone";
+
 
 
 
@@ -93,29 +98,26 @@ class UpdateProjectFormProcessing extends BaseFormProcessing
     ///   USUALLY THERE IS NOTHING ELSE TO MODIFY FROM HERE ON IN   ///
     ///////////////////////////////////////////////////////////////////
 
-
-    /*
+    /**
      * Inject the model
      *
      * @param Lasallecms\Lasallecmsapi\Repositories\BaseRepository
      */
-    public function __construct(BaseRepository $repository)
-    {
+    public function __construct(BaseRepository $repository) {
         $this->repository = $repository;
 
         $this->repository->injectModelIntoRepository($this->namespaceClassnameModel);
     }
 
-    /*
+    /**
      * The form processing steps.
      *
      * @param  object  $createCommand   The command bus object
      * @return array                    The custom response array
      */
-    public function quarterback($updateCommand)
-    {
+    public function quarterback($createCommand) {
         // Convert the command bus object into an array
-        $data = (array) $updateCommand;
+        $data = (array) $createCommand;
 
 
         // Sanitize
@@ -125,10 +127,7 @@ class UpdateProjectFormProcessing extends BaseFormProcessing
         // Validate
         if ($this->validate($data, $this->type) != "passed")
         {
-            // Unlock the record
-            $this->unlock($data['id']);
-
-            // Prepare the response array, and then return to the edit form with error messages
+            // Prepare the response array, and then return to the form with error messages
             return $this->prepareResponseArray('validation_failed', 500, $data, $this->validate($data, $this->type));
         }
 
@@ -137,13 +136,10 @@ class UpdateProjectFormProcessing extends BaseFormProcessing
         $data = $this->wash($data);
 
 
-        // UPDATE record
+        // INSERT record
         if (!$this->persist($data, $this->type))
         {
-            // Unlock the record
-            $this->unlock($data['id']);
-
-            // Prepare the response array, and then return to the edit form with error messages
+            // Prepare the response array, and then return to the form with error messages
             // Laravel's https://github.com/laravel/framework/blob/5.0/src/Illuminate/Database/Eloquent/Model.php
             //  does not prepare a MessageBag object, so we'll whip up an error message in the
             //  originating controller
@@ -151,12 +147,8 @@ class UpdateProjectFormProcessing extends BaseFormProcessing
         }
 
 
-        // Unlock the record
-        $this->unlock($data['id']);
-
-
-        // Prepare the response array, and then return to the command
-        return $this->prepareResponseArray('update_successful', 200, $data);
+        // Prepare the response array, and then return to the controller
+        return $this->prepareResponseArray('create_successful', 200, $data);
 
 
         ///////////////////////////////////////////////////////////////////

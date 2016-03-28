@@ -1,5 +1,6 @@
 <?php
-namespace Lasallecrm\Todo\Listeners\Todo_items;
+
+namespace Lasallecrm\Todo\FormProcessing\Todo_items;
 
 /**
  *
@@ -48,16 +49,17 @@ namespace Lasallecrm\Todo\Listeners\Todo_items;
 
 // LaSalle Software
 use Lasallecms\Lasallecmsapi\Repositories\BaseRepository;
-use Lasallecms\Lasallecmsapi\FormProcessing\BaseFormProcessing;
+use Lasallecms\Lasallecmsadmin\FormProcessing\BaseFormProcessing;
 
-/*
+
+/**
  * Process a deletion.
  *
  * FYI: BaseFormProcessing implements the FormProcessing interface.
  */
 class DeleteTodo_itemFormProcessing extends BaseFormProcessing
 {
-    /*
+    /**
      * Instance of repository
      *
      * @var Lasallecms\Lasallecmsapi\Repositories\BaseRepository
@@ -71,7 +73,7 @@ class DeleteTodo_itemFormProcessing extends BaseFormProcessing
     ///  * "update   for UPDATE                                     ///
     ///  * "destroy" for DELETE                                     ///
     ///////////////////////////////////////////////////////////////////
-    /*
+    /**
      * Type of persist
      *
      * @var string
@@ -81,7 +83,7 @@ class DeleteTodo_itemFormProcessing extends BaseFormProcessing
     ///////////////////////////////////////////////////////////////////
     /// SPECIFY THE FULL NAMESPACE AND CLASS NAME OF THE MODEL      ///
     ///////////////////////////////////////////////////////////////////
-    /*
+    /**
      * Namespace and class name of the model
      *
      * @var string
@@ -93,28 +95,25 @@ class DeleteTodo_itemFormProcessing extends BaseFormProcessing
     ///   USUALLY THERE IS NOTHING ELSE TO MODIFY FROM HERE ON IN   ///
     ///////////////////////////////////////////////////////////////////
 
-
-    /*
+    /**
      * Inject the model
      *
      * @param  Lasallecms\Lasallecmsapi\Repositories\BaseRepository
      */
-    public function __construct(BaseRepository $repository)
-    {
+    public function __construct(BaseRepository $repository) {
         $this->repository = $repository;
 
         $this->repository->injectModelIntoRepository($this->namespaceClassnameModel);
     }
 
-
-    /*
+    /**
      * The processing steps.
      *
      * @param  The command bus object   $deletePostCommand
      * @return The custom response array
      */
-    public function quarterback($id)
-    {
+    public function quarterback($id) {
+
         // DELETE record
         if (!$this->persist($id, $this->type))
         {

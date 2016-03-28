@@ -1,5 +1,6 @@
 <?php
-namespace Lasallecrm\Todo\Listeners\Projects;
+
+namespace Lasallecrm\Todo\FormProcessing\Milestones;
 
 /**
  *
@@ -48,14 +49,14 @@ namespace Lasallecrm\Todo\Listeners\Projects;
 
 // LaSalle Software
 use Lasallecms\Lasallecmsapi\Repositories\BaseRepository;
-use Lasallecms\Lasallecmsapi\FormProcessing\BaseFormProcessing;
+use Lasallecms\Lasallecmsadmin\FormProcessing\BaseFormProcessing;
 
-/*
+/**
  * Process a deletion.
  *
  * FYI: BaseFormProcessing implements the FormProcessing interface.
  */
-class DeleteProjectFormProcessing extends BaseFormProcessing
+class DeleteMilestoneFormProcessing extends BaseFormProcessing
 {
     /*
      * Instance of repository
@@ -86,35 +87,31 @@ class DeleteProjectFormProcessing extends BaseFormProcessing
      *
      * @var string
      */
-    protected $namespaceClassnameModel = "Lasallecrm\Todo\Models\Project";
+    protected $namespaceClassnameModel = "Lasallecrm\Todo\Models\Milestone";
 
 
     ///////////////////////////////////////////////////////////////////
     ///   USUALLY THERE IS NOTHING ELSE TO MODIFY FROM HERE ON IN   ///
     ///////////////////////////////////////////////////////////////////
 
-
     /*
      * Inject the model
      *
      * @param  Lasallecms\Lasallecmsapi\Repositories\BaseRepository
      */
-    public function __construct(BaseRepository $repository)
-    {
+    public function __construct(BaseRepository $repository) {
         $this->repository = $repository;
 
         $this->repository->injectModelIntoRepository($this->namespaceClassnameModel);
     }
 
-
-    /*
+    /**
      * The processing steps.
      *
      * @param  The command bus object   $deletePostCommand
      * @return The custom response array
      */
-    public function quarterback($id)
-    {
+    public function quarterback($id) {
         // DELETE record
         if (!$this->persist($id, $this->type))
         {

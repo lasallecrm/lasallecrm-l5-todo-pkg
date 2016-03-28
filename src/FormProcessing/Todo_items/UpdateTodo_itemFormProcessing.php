@@ -1,5 +1,6 @@
 <?php
-namespace Lasallecrm\Todo\Listeners\Milestones;
+
+namespace Lasallecrm\Todo\FormProcessing\Todo_items;
 
 /**
  *
@@ -32,7 +33,6 @@ namespace Lasallecrm\Todo\Listeners\Milestones;
  *
  */
 
-
 ///////////////////////////////////////////////////////////////////
 ///            THIS IS A COMMAND HANDLER                        ///
 ///////////////////////////////////////////////////////////////////
@@ -48,16 +48,17 @@ namespace Lasallecrm\Todo\Listeners\Milestones;
 
 // LaSalle Software
 use Lasallecms\Lasallecmsapi\Repositories\BaseRepository;
-use Lasallecms\Lasallecmsapi\FormProcessing\BaseFormProcessing;
+use Lasallecms\Lasallecmsadmin\FormProcessing\BaseFormProcessing;
 
-/*
- * Process a deletion.
+
+/**
+ * Process an existing record.
  *
  * FYI: BaseFormProcessing implements the FormProcessing interface.
  */
-class DeleteMilestoneFormProcessing extends BaseFormProcessing
+class UpdateTodo_itemFormProcessing extends BaseFormProcessing
 {
-    /*
+    /**
      * Instance of repository
      *
      * @var Lasallecms\Lasallecmsapi\Repositories\BaseRepository
@@ -71,61 +72,95 @@ class DeleteMilestoneFormProcessing extends BaseFormProcessing
     ///  * "update   for UPDATE                                     ///
     ///  * "destroy" for DELETE                                     ///
     ///////////////////////////////////////////////////////////////////
-    /*
+    /**
      * Type of persist
      *
      * @var string
      */
-    protected $type = "destroy";
+    protected $type = "update";
 
     ///////////////////////////////////////////////////////////////////
     /// SPECIFY THE FULL NAMESPACE AND CLASS NAME OF THE MODEL      ///
     ///////////////////////////////////////////////////////////////////
-    /*
+    /**
      * Namespace and class name of the model
      *
      * @var string
      */
-    protected $namespaceClassnameModel = "Lasallecrm\Todo\Models\Milestone";
+    protected $namespaceClassnameModel = "Lasallecrm\Todo\Models\Todo_item";
+
 
 
     ///////////////////////////////////////////////////////////////////
     ///   USUALLY THERE IS NOTHING ELSE TO MODIFY FROM HERE ON IN   ///
     ///////////////////////////////////////////////////////////////////
 
-
-    /*
+    /**
      * Inject the model
      *
-     * @param  Lasallecms\Lasallecmsapi\Repositories\BaseRepository
+     * @param Lasallecms\Lasallecmsapi\Repositories\BaseRepository
      */
-    public function __construct(BaseRepository $repository)
-    {
+    public function __construct(BaseRepository $repository) {
         $this->repository = $repository;
 
         $this->repository->injectModelIntoRepository($this->namespaceClassnameModel);
     }
 
-
-    /*
-     * The processing steps.
+    /**
+     * The form processing steps.
      *
-     * @param  The command bus object   $deletePostCommand
-     * @return The custom response array
+     * @param  object  $createCommand   The command bus object
+     * @return array                    The custom response array
      */
-    public function quarterback($id)
-    {
-        // DELETE record
-        if (!$this->persist($id, $this->type))
+    public function quarterback($updateCommand) {
+
+        // Convert the command bus object into an array
+        $data = (array) $updateCommand;
+
+
+        // Sanitize
+        $data = $this->sanitize($data, $this->type);
+
+
+        // Validate
+        if ($this->validate($data, $this->type) != "passed")
         {
+            // Unlock the record
+            $this->unlock($data['id']);
+
+            // Prepare the response array, and then return to the edit form with error messages
+            return $this->prepareResponseArray('validation_failed', 500, $data, $this->validate($data, $this->type));
+        }
+
+
+        // Even though we already sanitized the data, we further "wash" the data
+        $data = $this->wash($data);
+
+
+        // UPDATE record
+        if (!$this->persist($data, $this->type))
+        {
+            // Unlock the record
+            $this->unlock($data['id']);
+
             // Prepare the response array, and then return to the edit form with error messages
             // Laravel's https://github.com/laravel/framework/blob/5.0/src/Illuminate/Database/Eloquent/Model.php
             //  does not prepare a MessageBag object, so we'll whip up an error message in the
             //  originating controller
-            return $this->prepareResponseArray('persist_failed', 500, $id);
+            return $this->prepareResponseArray('persist_failed', 500, $data);
         }
 
+
+        // Unlock the record
+        $this->unlock($data['id']);
+
+
         // Prepare the response array, and then return to the command
-        return $this->prepareResponseArray('create_successful', 200, $id);
+        return $this->prepareResponseArray('update_successful', 200, $data);
+
+
+        ///////////////////////////////////////////////////////////////////
+        ///     NO EVENTS ARE SPECIFIED IN THE BASE FORM PROCESSING     ///
+        ///////////////////////////////////////////////////////////////////
     }
 }
