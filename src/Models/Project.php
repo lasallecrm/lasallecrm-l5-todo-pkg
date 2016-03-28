@@ -1,40 +1,46 @@
 <?php
+
 namespace Lasallecrm\Todo\Models;
 
-    /**
-     *
-     * To Do package for the LaSalle Customer Relationship Management package.
-     *
-     * Based on the Laravel 5 Framework.
-     *
-     * Copyright (C) 2015 - 2016  The South LaSalle Trading Corporation
-     *
-     * This program is free software: you can redistribute it and/or modify
-     * it under the terms of the GNU General Public License as published by
-     * the Free Software Foundation, either version 3 of the License, or
-     * (at your option) any later version.
-     *
-     * This program is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     * GNU General Public License for more details.
-     *
-     * You should have received a copy of the GNU General Public License
-     * along with this program.  If not, see <http://www.gnu.org/licenses/>.
-     *
-     *
-     * @package    To Do package for the LaSalle Customer Relationship Management package
-     * @link       http://LaSalleCRM.com
-     * @copyright  (c) 2015 - 2016, The South LaSalle Trading Corporation
-     * @license    http://www.gnu.org/licenses/gpl-3.0.html
-     * @author     The South LaSalle Trading Corporation
-     * @email      info@southlasalle.com
-     *
-     */
+/**
+ *
+ * To Do package for the LaSalle Customer Relationship Management package.
+ *
+ * Based on the Laravel 5 Framework.
+ *
+ * Copyright (C) 2015 - 2016  The South LaSalle Trading Corporation
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *
+ * @package    To Do package for the LaSalle Customer Relationship Management package
+ * @link       http://LaSalleCRM.com
+ * @copyright  (c) 2015 - 2016, The South LaSalle Trading Corporation
+ * @license    http://www.gnu.org/licenses/gpl-3.0.html
+ * @author     The South LaSalle Trading Corporation
+ * @email      info@southlasalle.com
+ *
+ */
 
 // LaSalle Software
 use Lasallecms\Lasallecmsapi\Models\BaseModel;
 
+
+/**
+ * Class Project
+ * @package Lasallecrm\Todo\Models
+ */
 class Project extends BaseModel
 {
     ///////////////////////////////////////////////////////////////////
@@ -74,7 +80,7 @@ class Project extends BaseModel
 
     // PACKAGE PROPERTIES
 
-    /*
+    /**
      * Name of this package
      *
      * @var string
@@ -84,7 +90,7 @@ class Project extends BaseModel
 
     // MODEL PROPERTIES
 
-    /*
+    /**
      * Model class namespace.
      *
      * Do *NOT* specify the model's class.
@@ -93,7 +99,7 @@ class Project extends BaseModel
      */
     public $model_namespace = "Lasallecrm\Todo\Models";
 
-    /*
+    /**
      * Model's class.
      *
      * Convention is capitalized and singular -- which is assumed.
@@ -105,7 +111,7 @@ class Project extends BaseModel
 
     // RESOURCE ROUTE PROPERTIES
 
-    /*
+    /**
      * The base URL of the resource routes.
      *
      * Frequently is the same as the table name.
@@ -124,30 +130,30 @@ class Project extends BaseModel
     // THE ONLY REASON YOU HAVE TO CREATE THESE COMMAND HANDLERS AT ALL IS THAT
     // THE EVENTS DIFFER. EVERYTHING THAT HAPPENS UP TO THE "PERSIST" IS PRETTY STANDARD.
 
-    /*
+    /**
      * Namespace of the Form Processors
      *
      * MUST *NOT* have a slash at the end of the string
      *
      * @var string
      */
-    public $namespace_formprocessor = 'Lasallecrm\Todo\Listeners\Projects';
+    public $namespace_formprocessor = 'Lasallecrm\Todo\FormProcessing\Projects';
 
-    /*
+    /**
      * Class name of the CREATE Form Processor command
      *
      * @var string
      */
     public $classname_formprocessor_create = 'CreateProjectFormProcessing';
 
-    /*
+    /**
      * Namespace and class name of the UPDATE Form Processor command
      *
      * @var string
      */
     public $classname_formprocessor_update = 'UpdateProjectFormProcessing';
 
-    /*
+    /**
      * Namespace and class name of the DELETE (DESTROY) Form Processor command
      *
      * @var string
@@ -209,7 +215,7 @@ class Project extends BaseModel
 
     // USER GROUPS & ROLES PROPERTIES
 
-    /*
+    /**
      * User groups that are allowed to execute each controller action
      *
      * @var array
@@ -226,7 +232,7 @@ class Project extends BaseModel
 
     // FIELD LIST PROPERTIES
 
-    /*
+    /**
      * Field list
      *
      * ID and TITLE must go first.
@@ -362,7 +368,7 @@ class Project extends BaseModel
 
     // MISC PROPERTIES
 
-    /*
+    /**
      * Suppress the delete button when just one record to list, in the listings (index) page
      *
      * true  = suppress the delete button when just one record to list
@@ -372,7 +378,7 @@ class Project extends BaseModel
      */
     public $suppress_delete_button_when_one_record = false;
 
-    /*
+    /**
      * DO NOT DELETE THESE CORE RECORDS.
      *
      * Specify the TITLE of these records
@@ -388,7 +394,7 @@ class Project extends BaseModel
     //////////////        RELATIONSHIPS             ///////////////////
     ///////////////////////////////////////////////////////////////////
 
-    /*
+    /**
      * One to one relationship with Milestone
      *
      * Method name must be:
@@ -399,12 +405,11 @@ class Project extends BaseModel
      *
      * @return Eloquent
      */
-    public function milestone()
-    {
+    public function milestone() {
         return $this->hasOne('Lasallecrm\Todo\Models\Milestone');
     }
 
-    /*
+    /**
      * One to one relationship with Lookup_todo_priority_type
      *
      * Method name must be:
@@ -415,12 +420,11 @@ class Project extends BaseModel
      *
      * @return Eloquent
      */
-    public function lookup_todo_priority_type()
-    {
+    public function lookup_todo_priority_type() {
         return $this->hasOne('Lasallecrm\Todo\Models\Lookup_todo_priority_type');
     }
 
-    /*
+    /**
      * One to one relationship with Lookup_todo_status_type
      *
      * Method name must be:
@@ -431,12 +435,11 @@ class Project extends BaseModel
      *
      * @return Eloquent
      */
-    public function lookup_todo_status_type()
-    {
+    public function lookup_todo_status_type() {
         return $this->hasOne('Lasallecrm\Todo\Models\Lookup_todo_status_type');
     }
 
-    /*
+    /**
      * One to one relationship with Company
      *
      * Method name must be:
@@ -447,12 +450,11 @@ class Project extends BaseModel
      *
      * @return Eloquent
      */
-    public function company()
-    {
+    public function company() {
         return $this->hasOne('Lasallecrm\Todo\Models\Company');
     }
 
-    /*
+    /**
      * One to one relationship with People
      *
      * Method name must be:
@@ -463,12 +465,11 @@ class Project extends BaseModel
      *
      * @return Eloquent
      */
-    public function people()
-    {
+    public function people() {
         return $this->hasOne('Lasallecrm\Todo\Models\People');
     }
 
-    /*
+    /**
      * One to one relationship with Website
      *
      * Method name must be:
@@ -479,8 +480,7 @@ class Project extends BaseModel
      *
      * @return Eloquent
      */
-    public function website()
-    {
+    public function website() {
         return $this->hasOne('Lasallecrm\Todo\Models\Website');
     }
 

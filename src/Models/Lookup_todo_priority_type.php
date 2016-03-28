@@ -1,4 +1,5 @@
 <?php
+
 namespace Lasallecrm\Todo\Models;
 
 /**
@@ -43,6 +44,11 @@ use Lasallecms\Lasallecmsapi\Models\BaseModel;
 // Laravel facades
 use Illuminate\Support\Facades\DB;
 
+
+/**
+ * Class Lookup_todo_priority_type
+ * @package Lasallecrm\Todo\Models
+ */
 class Lookup_todo_priority_type extends BaseModel
 {
     ///////////////////////////////////////////////////////////////////
@@ -74,7 +80,7 @@ class Lookup_todo_priority_type extends BaseModel
     public $timestamps = false;
 
 
-    /*
+    /**
      * User groups that are allowed to execute each controller action
      */
     public $allowed_user_groups = [
@@ -92,7 +98,7 @@ class Lookup_todo_priority_type extends BaseModel
     //////////////        RELATIONSHIPS             ///////////////////
     ///////////////////////////////////////////////////////////////////
 
-    /*
+    /**
      * One to one relationship with Milestone
      *
      * Method name must be:
@@ -103,8 +109,7 @@ class Lookup_todo_priority_type extends BaseModel
      *
      * @return Eloquent
      */
-    public function milestone()
-    {
+    public function milestone() {
         return $this->belongsTo('Lasallecms\Todo\Models\Milestone');
     }
 
@@ -114,15 +119,15 @@ class Lookup_todo_priority_type extends BaseModel
     ////////////        FOREIGN KEY CONSTRAINTS       /////////////////
     ///////////////////////////////////////////////////////////////////
 
-    /*
+    /**
      * Return an array of all the tables using a specified lookup table id.
      * The array is in the form ['table related to the lookup table' => 'count']
      *
      * @param   int   $id   Table ID
      * @return  array
      */
-    public function foreignKeyCheck($id)
-    {
+    public function foreignKeyCheck($id) {
+
         // 'related_table' is the table name
         return  [
             [ 'related_table' => 'milestones', 'count' => $this->milestoneCount($id) ],
@@ -131,43 +136,40 @@ class Lookup_todo_priority_type extends BaseModel
         ];
     }
 
-    /*
+    /**
      * Count of related table using lookup table.
      *
      * Method name is the table name (no techie reason, just a convention to adopt)
      *
      * @return int
      */
-    public function milestoneCount($id)
-    {
+    public function milestoneCount($id) {
         // I know eloquent does this, but having trouble so hand crafting using DB
         $record =  DB::table('milestones')->where('priority_id', '=', $id)->get();
         return count($record);
     }
 
-    /*
+    /**
      * Count of related table using lookup table.
      *
      * Method name is the table name (no techie reason, just a convention to adopt)
      *
      * @return int
      */
-    public function projectCount($id)
-    {
+    public function projectCount($id) {
         // I know eloquent does this, but having trouble so hand crafting using DB
         $record =  DB::table('projects')->where('priority_id', '=', $id)->get();
         return count($record);
     }
 
-    /*
+    /**
      * Count of related table using lookup table.
      *
      * Method name is the table name (no techie reason, just a convention to adopt)
      *
      * @return int
      */
-    public function todo_itemCount($id)
-    {
+    public function todo_itemCount($id) {
         // I know eloquent does this, but having trouble so hand crafting using DB
         $record =  DB::table('todo_items')->where('priority_id', '=', $id)->get();
         return count($record);

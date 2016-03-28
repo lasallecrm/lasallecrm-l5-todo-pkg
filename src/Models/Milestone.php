@@ -1,4 +1,5 @@
 <?php
+
 namespace Lasallecrm\Todo\Models;
 
 /**
@@ -35,6 +36,11 @@ namespace Lasallecrm\Todo\Models;
 // LaSalle Software
 use Lasallecms\Lasallecmsapi\Models\BaseModel;
 
+
+/**
+ * Class Milestone
+ * @package Lasallecrm\Todo\Models
+ */
 class Milestone extends BaseModel
 {
     ///////////////////////////////////////////////////////////////////
@@ -74,7 +80,7 @@ class Milestone extends BaseModel
 
     // PACKAGE PROPERTIES
 
-    /*
+    /**
      * Name of this package
      *
      * @var string
@@ -84,7 +90,7 @@ class Milestone extends BaseModel
 
     // MODEL PROPERTIES
 
-    /*
+    /**
      * Model class namespace.
      *
      * Do *NOT* specify the model's class.
@@ -93,7 +99,7 @@ class Milestone extends BaseModel
      */
     public $model_namespace = "Lasallecrm\Todo\Models";
 
-    /*
+    /**
      * Model's class.
      *
      * Convention is capitalized and singular -- which is assumed.
@@ -105,7 +111,7 @@ class Milestone extends BaseModel
 
     // RESOURCE ROUTE PROPERTIES
 
-    /*
+    /**
      * The base URL of the resource routes.
      *
      * Frequently is the same as the table name.
@@ -124,30 +130,30 @@ class Milestone extends BaseModel
     // THE ONLY REASON YOU HAVE TO CREATE THESE COMMAND HANDLERS AT ALL IS THAT
     // THE EVENTS DIFFER. EVERYTHING THAT HAPPENS UP TO THE "PERSIST" IS PRETTY STANDARD.
 
-    /*
+    /**
      * Namespace of the Form Processors
      *
      * MUST *NOT* have a slash at the end of the string
      *
      * @var string
      */
-    public $namespace_formprocessor = 'Lasallecrm\Todo\Listeners\Milestones';
+    public $namespace_formprocessor = 'Lasallecrm\Todo\FormProcessing\Milestones';
 
-    /*
+    /**
      * Class name of the CREATE Form Processor command
      *
      * @var string
      */
     public $classname_formprocessor_create = 'CreateMilestoneFormProcessing';
 
-    /*
+    /**
      * Namespace and class name of the UPDATE Form Processor command
      *
      * @var string
      */
     public $classname_formprocessor_update = 'UpdateMilestoneFormProcessing';
 
-    /*
+    /**
      * Namespace and class name of the DELETE (DESTROY) Form Processor command
      *
      * @var string
@@ -209,7 +215,7 @@ class Milestone extends BaseModel
 
     // USER GROUPS & ROLES PROPERTIES
 
-    /*
+    /**
      * User groups that are allowed to execute each controller action
      *
      * @var array
@@ -226,7 +232,7 @@ class Milestone extends BaseModel
 
     // FIELD LIST PROPERTIES
 
-    /*
+    /**
      * Field list
      *
      * ID and TITLE must go first.
@@ -306,7 +312,7 @@ class Milestone extends BaseModel
 
     // MISC PROPERTIES
 
-    /*
+    /**
      * Suppress the delete button when just one record to list, in the listings (index) page
      *
      * true  = suppress the delete button when just one record to list
@@ -332,7 +338,7 @@ class Milestone extends BaseModel
     //////////////        RELATIONSHIPS             ///////////////////
     ///////////////////////////////////////////////////////////////////
 
-    /*
+    /**
      * One to one relationship with Lookup_todo_priority_type
      *
      * Method name must be:
@@ -343,12 +349,11 @@ class Milestone extends BaseModel
      *
      * @return Eloquent
      */
-    public function lookup_todo_priority_type()
-    {
+    public function lookup_todo_priority_type() {
         return $this->hasOne('Lasallecrm\Todo\Models\Lookup_todo_priority_type');
     }
 
-    /*
+    /**
      * One to one relationship with Lookup_todo_status_type
      *
      * Method name must be:
@@ -359,8 +364,7 @@ class Milestone extends BaseModel
      *
      * @return Eloquent
      */
-    public function lookup_todo_status_type()
-    {
+    public function lookup_todo_status_type() {
         return $this->hasOne('Lasallecrm\Todo\Models\Lookup_todo_status_type');
     }
 
